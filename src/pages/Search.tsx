@@ -5,6 +5,7 @@ import Book from '../components/products/Book';
 import categories from '../components/navbar/Categories';
 import LoadIcon from '../components/icons/LoadIcon';
 import SearchIcon from '../components/icons/SearchIcon';
+import serverUrl from '../globals/url';
 
 const Search: React.FC = () => {
     const [searchResult, setSearchResult] = useState<BookCoverType[]>([]);
@@ -43,7 +44,7 @@ const Search: React.FC = () => {
     };
 
     const search = async (): Promise<void> => {
-        const url = `http://127.0.0.1:5000/api/v1/books?title=${inputValue}`;
+        const url = `${serverUrl}/books?title=${inputValue}`;
 
         const response = await fetch(url);
         const data: BookCoverType[] = await response.json();
@@ -73,9 +74,7 @@ const Search: React.FC = () => {
         }
 
         allFilters += numericFilters;
-        const url = `http://127.0.0.1:5000/api/v1/books?title=${
-            inputValue || ''
-        }${allFilters}`;
+        const url = `${serverUrl}/books?title=${inputValue || ''}${allFilters}`;
 
         // console.log(url);
         const response = await fetch(url);

@@ -6,6 +6,7 @@ import CartIcon2 from '../components/icons/CartIcon2';
 import { BookCoverType } from './Books';
 import Book2 from '../components/products/Book';
 import { addToCart } from '../components/methods/methods';
+import url from '../globals/url';
 
 interface BookType {
     _id: string;
@@ -36,7 +37,7 @@ const Book: React.FC = () => {
 
     const fetchSimilarBooks = async (category?: string): Promise<void> => {
         const response = await fetch(
-            `http://127.0.0.1:5000/api/v1/books?category=${
+            `${url}/v1/books?category=${
                 book?.category || category
             }&fields=title,price,image`
         );
@@ -45,9 +46,7 @@ const Book: React.FC = () => {
     };
 
     const fetchBook = async (): Promise<void> => {
-        const response = await fetch(
-            `http://127.0.0.1:5000/api/v1/books/${bookID}`
-        );
+        const response = await fetch(`${url}/v1/books/${bookID}`);
         const data: BookType = await response.json();
         setBook(data);
     };

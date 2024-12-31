@@ -6,6 +6,7 @@ import EyeSlashIcon from '../components/icons/EyeSlashIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadIcon from '../components/icons/LoadIcon';
+import url from '../globals/url';
 
 interface FormDataType {
     email: string;
@@ -96,10 +97,7 @@ const Login: React.FC = () => {
 
     const submitForm = async (): Promise<void> => {
         try {
-            const response = await axios.post(
-                'http://127.0.0.1:5000/api/v1/users/login',
-                inputs
-            );
+            const response = await axios.post(`${url}/v1/users/login`, inputs);
 
             const { data: responseData } = response;
 

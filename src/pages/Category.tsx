@@ -3,6 +3,7 @@ import Book from '../components/products/Book';
 import { useEffect, useState } from 'react';
 import { BookCoverType } from './Books';
 import { Load } from '../components/contents/Main';
+import url from '../globals/url';
 
 const Category: React.FC = () => {
     const { categoryName } = useParams();
@@ -11,7 +12,7 @@ const Category: React.FC = () => {
 
     const fetchBooks = async (): Promise<void> => {
         const response = await fetch(
-            `http://127.0.0.1:5000/api/v1/books?category=${categoryName}&fields=title,price,image`
+            `${url}/books?category=${categoryName}&fields=title,price,image`
         );
         const data: BookCoverType[] = await response.json();
         setBooks(data);

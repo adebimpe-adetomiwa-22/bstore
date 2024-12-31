@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Book from '../products/Book';
 import { BookCoverType } from '../../pages/Books';
 import LoadIcon from '../icons/LoadIcon';
+import url from '../../globals/url';
 // import Search from './Search';
 
 const Main: React.FC = () => {
@@ -12,7 +13,7 @@ const Main: React.FC = () => {
 
     const fetchBooks = async (): Promise<void> => {
         const response = await fetch(
-            `http://127.0.0.1:5000/api/v1/books?limit=50&fields=title,price,image`
+            `${url}/books?limit=50&fields=title,price,image`
         );
         const data: BookCoverType[] = await response.json();
         // setBooks(data);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Book from '../components/products/Book';
 import { Load } from '../components/contents/Main';
+import url from '../globals/url';
 
 export interface BookCoverType {
     _id: string;
@@ -18,7 +19,7 @@ const Books = () => {
     // functions
     const fetchBooks = async (): Promise<void> => {
         const response = await fetch(
-            `http://127.0.0.1:5000/api/v1/books?limit=10&fields=title,price,image&page=${page}`
+            `${url}/books?limit=10&fields=title,price,image&page=${page}`
         );
         const data: BookCoverType[] = await response.json();
         // console.log(data);

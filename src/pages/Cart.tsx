@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import CartItem from '../components/contents/CartItem';
 import { CartBookType } from '../components/methods/methods';
-
 const Cart = () => {
     const [books, setBooks] = useState<CartBookType[] | null>(null);
     const [fixedPage, setFixedPage] = useState<boolean>(false);
