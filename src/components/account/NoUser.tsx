@@ -19,7 +19,7 @@ const NoUser = () => {
                     </Link>
                 </div>
                 <div className='back-home mt-10'>
-                    <Link to={'/'}>
+                    <Link to={'/bstore'}>
                         <button className='transition-all flex items-center gap-2 border border-primary py-1 px-2 rounded-md bg-primary text-secondary bg-opacity-85 hover:bg-opacity-100'>
                             <span className=''>
                                 <HouseIcon width={20} height={20} />
