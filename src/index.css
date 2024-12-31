@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply scroll-smooth scrollbar-thin scrollbar-thumb-primary scrollbar-track-secondary;
+    }
+
+    /* html::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    html::-webkit-scrollbar-track {
+        width: 10px;
+        background-color: #b8afc7;
+        border-radius: 10px;
+    }
+
+    html::-webkit-scrollbar-thumb {
+        background-color: #321d52;
+        border-radius: 10px;
+    } */
+
+    input {
+        @apply outline-none px-1 py-0.5;
+        border: 1px solid rgba(50, 29, 82, 0.5);
+    }
+}
+
+@layer components {
+    .container {
+        @apply p-3;
+    }
+
+    .hero {
+        @apply bg-[url('./assets/images/jessica-ruscello-OQSCtabGkSY-unsplash@2x.png')] bg-cover bg-center bg-no-repeat bg-rblue bg-blend-multiply;
+        @apply md:bg-none md:bg-primary;
+    }
+
+    .book-subtitle {
+        @apply bg-primary text-secondary p-2 mt-5 rounded-sm text-center;
+    }
+
+    .btn-hover {
+        @apply hover:bg-opacity-80 transition-colors;
+    }
+
+    .icon-hover {
+        @apply w-[37px] h-[37px] hover:bg-[#3c1e69] flex justify-center items-center rounded-full transition;
+    }
+
+    .sidebar {
+        background-color: rgba(50, 29, 82, 0.3);
+    }
+
+    .nav-style {
+        @apply flex flex-row-reverse justify-end items-center gap-2 transition-all hover:text-primary md:hover:text-secondary;
+    }
+    .category-list-style {
+        @apply transition text-gray-600 hover:text-gray-700;
+    }
+
+    .connect-link-style {
+        @apply w-[35px] h-[35px] flex justify-center items-center rounded-full transition hover:bg-[#200c3f];
+    }
+
+    .site-map-style {
+        @apply transition hover:text-secondary;
+    }
+
+    .social-icon {
+        @apply w-[40px] h-[40px] flex justify-center items-center rounded-full transition text-[#78757c] hover:bg-[#eae8ec];
+    }
+
+    .contact-form-input-style {
+        @apply px-1 py-2 rounded-md bg-primary bg-opacity-5 border-none outline-none transition-all focus:bg-opacity-10;
+    }
+
+    .page-button {
+        @apply border border-primary text-primary px-3 py-0.5 rounded-md transition;
+        @apply hover:bg-primary hover:text-secondary;
+    }
+
+    .caret-button {
+        @apply w-6 h-6 flex justify-center items-center rounded-full transition hover:opacity-80;
+    }
+
+    .caret-button.up {
+        /* @apply hover:bg-main hover:text-secondary; */
+        @apply bg-main text-secondary;
+    }
+    .caret-button.down {
+        /* @apply hover:border hover:border-main hover:text-main; */
+        @apply border border-main text-main;
+    }
+
+    /* form */
+    .form-group {
+        @apply flex flex-col gap-1 text-gray-500/70;
+    }
+
+    /* .form-group > input[type='text'],
+    .form-group input[type='password'] {
+        @apply p-1 rounded-[3.5px];
+    } */
+
+    .form-input-style {
+        @apply flex items-center relative;
+    }
+    .form-input-icon {
+        @apply absolute left-2 transition-all;
+    }
+    .form-input-style > input[type='text'],
+    .form-input-style > input[type='password'] {
+        @apply w-full py-1 h-full pl-10 rounded-[3.5px] transition-all;
+        @apply sm:py-2;
+        @apply md:py-3;
+    }
+
+    .form-input-focus {
+        @apply focus:border focus:border-primary text-primary;
+    }
+
+    .input-icon-focus {
+        @apply text-primary;
+    }
+
+    .password-field {
+        @apply pr-10;
+    }
+
+    .input-view-style {
+        @apply absolute right-2 cursor-pointer;
+    }
+
+    .input-view-style.active {
+        @apply text-primary;
+    }
+
+    .form-label-active {
+        @apply text-primary;
+    }
+
+    .form-group > small {
+        @apply text-red-500;
+    }
+
+    .submit-button {
+        @apply bg-main text-secondary border-none outline-none py-1.5 rounded-[3.5px] cursor-pointer transition hover:bg-opacity-85 active:bg-opacity-100 flex justify-center items-center gap-3;
+        @apply sm:py-2;
+        @apply md:py-3;
+    }
+
+    .submit-button-load-icon {
+        @apply animate-spin;
+    }
+
+    .account-button {
+        @apply py-1 px-2 rounded-md transition-all;
+    }
+
+    .social {
+        @apply text-gray-500 cursor-pointer w-9 h-9 rounded-full flex justify-center items-center;
+        @apply hover:bg-gray-200/80;
+    }
+}
