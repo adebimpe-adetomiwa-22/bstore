@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import BookCover from '../assets/images/book_cover.png';
 import StarIcon from '../components/icons/StarIcon';
 import CartIcon2 from '../components/icons/CartIcon2';
 import { BookCoverType } from './Books';
@@ -61,12 +60,6 @@ const Book: React.FC = () => {
         fetchSimilarBooks();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [book]);
-
-    // useEffect(() => {
-    //     formateRating();
-    //     console.log(rating);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [rating]);
 
     const formateRating = () => {
         if (!rating) {
