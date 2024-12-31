@@ -119,8 +119,8 @@ const Book: React.FC = () => {
                     <div className='flex flex-col items-center sm:flex-row sm:h-80 sm:gap-3 lg:w-full'>
                         <div className='book-image sm:w-full sm:h-full'>
                             <img
-                                src={navigator.onLine ? book?.image : BookCover}
-                                // src={book?.image}
+                                // src={navigator.onLine ? book?.image : BookCover}
+                                src={book?.image}
                                 alt='book image'
                                 title='book image'
                                 className='mt-5 w-48 sm:w-auto sm:h-full sm:mt-0'
