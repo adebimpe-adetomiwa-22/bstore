@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Book from '../components/products/Book';
-import { Load } from '../components/contents/Main';
-import url from '../globals/url';
+import { useStore } from '../store';
 
 export interface BookCoverType {
     _id: string;
@@ -11,21 +10,8 @@ export interface BookCoverType {
 }
 
 const Books = () => {
-    const [books, setBooks] = useState<BookCoverType[]>([]);
     const [page, setPage] = useState<number>(1);
-    const [loading, setLoading] = useState<boolean>(true);
-    // const [pageDisabled, setPageDisabled] = useState<boolean>(false);
-
-    // functions
-    const fetchBooks = async (): Promise<void> => {
-        const response = await fetch(
-            `${url}/books?limit=10&fields=title,price,image&page=${page}`
-        );
-        const data: BookCoverType[] = await response.json();
-        // console.log(data);
-        setBooks(data);
-        setLoading(false);
-    };
+    const books = useStore((store) => store.cover).slice(0, 20);
 
     const nextPage = (): void => {
         // if (page)
@@ -45,26 +31,6 @@ const Books = () => {
         setPage(value);
     };
 
-    // const changePage = (): void => {
-    //     setPageDisabled((prevPageDisabled) => !prevPageDisabled);
-    //     console.log('double clicked');
-    // };
-
-    // effects
-
-    // useEffect(() => {
-    //     console.log(page);
-    // }, [page]);
-
-    // useEffect(() => {
-    //     console.log(pageDisabled);
-    // }, [pageDisabled]);
-
-    useEffect(() => {
-        fetchBooks();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
-
     return (
         <section className='all-books' id='all-books'>
             <div className='container'>
@@ -74,45 +40,22 @@ const Books = () => {
                             Prev
                         </button>
                     )}
-                    {/* <p
-                        onDoubleClick={() => {
-                            console.log('ready to edit');
-                        }}
-                    >
-                        {page}
-                    </p> */}
+
                     <input
-                        // type='number'
                         minLength={1}
                         value={page}
-                        // disabled={pageDisabled}
                         className='w-5 text-center border-none outline-none'
                         onChange={handleChange}
-                        // onDoubleClick={changePage}
                     />
                     <button className='page-button' onClick={nextPage}>
                         Next
                     </button>
                 </div>
-                {loading ? (
-                    <Load />
-                ) : (
-                    <div className='books mt-10 flex flex-wrap justify-center gap-3'>
-                        {books.map((book) => (
-                            <Book key={book._id} {...book} />
-                        ))}
-                    </div>
-                )}
-                {/* <div className='pages mt-10 flex justify-center items-center gap-5 text-sm'>
-                    {page > 1 && (
-                        <button className='page-button' onClick={prevPage}>
-                            Prev
-                        </button>
-                    )}
-                    <button className='page-button' onClick={nextPage}>
-                        Next
-                    </button>
-                </div> */}
+                <div className='books mt-10 flex flex-wrap justify-center gap-3'>
+                    {books.map((book, index) => (
+                        <Book key={index} {...book} />
+                    ))}
+                </div>
             </div>
         </section>
     );

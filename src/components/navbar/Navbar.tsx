@@ -6,14 +6,11 @@ import Sidebar from './Sidebar';
 import { useEffect, useState } from 'react';
 import NavContents from './NavContents';
 import Footer from '../footer/Footer';
-// import FetchWarning from './FetchWarning';
-// import FloatingWarning from './FloatingWarning';
 import SearchIcon from '../icons/SearchIcon';
 import CartIcon2 from '../icons/CartIcon2';
 
 const Navbar = () => {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
-    // const [enableWarning, setEnableWarning] = useState<boolean>(true);
     const [cartCount, setCartCount] = useState<number>(0);
 
     const toggleSidebar = (): void => {
