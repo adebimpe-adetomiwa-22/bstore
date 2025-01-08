@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import BookCover from '../../assets/images/book_cover.png';
+// import BookCover from '../../assets/images/book_cover.png';
 import { BookCoverType } from '../../pages/Books';
 import { addToCart } from '../methods/methods';
 const Book: React.FC<BookCoverType> = ({ _id, title, price, image }) => {
@@ -9,7 +9,8 @@ const Book: React.FC<BookCoverType> = ({ _id, title, price, image }) => {
                 <div className='flex flex-col gap-1 justify-center items-center cursor-pointer w-full'>
                     {/* <img src={BookCover} className='w-[120px] sm:w-[130px]' /> */}
                     <img
-                        src={navigator.onLine ? image : BookCover}
+                        // src={navigator.onLine ? image : BookCover}
+                        src={image}
                         className='w-[120px] sm:w-[130px]'
                     />
                     <p className='text-[14px] text-center truncate w-3/5'>

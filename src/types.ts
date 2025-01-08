@@ -25,9 +25,21 @@ export interface Cover {
 
 export interface Store {
     books: Book[];
-    error: boolean;
-    errorMessage: string;
     cover: BookCoverType[];
     category: (categoryName: string) => BookCoverType[];
-    // fields: (...fieldNames: string[]) =>
+    search: {
+        open: boolean;
+        searching: boolean;
+        toggleOpen: () => void;
+        textInput: string;
+        enableAdvanceSearch: boolean;
+        category: string;
+        price: number;
+        rating: number;
+        onChange: (
+            name: string,
+            value: number | string | boolean | BookCoverType[]
+        ) => void;
+        searchedBooks: BookCoverType[];
+    };
 }

@@ -6,7 +6,6 @@ const Main: React.FC = () => {
     const cover = useStore((store) => store.cover);
     const latestBooks = cover.slice(0, 13);
     const bestSelling = cover.slice(13, 30);
-    console.log(latestBooks, bestSelling);
     return (
         <main className='main' id='main'>
             <div className='container'>
@@ -26,8 +25,8 @@ const Main: React.FC = () => {
                         <h3>Best Selling</h3>
                     </div>
                     <div className='books mt-3 flex flex-wrap justify-center gap-3'>
-                        {bestSelling.map((book) => (
-                            <Book key={book._id} {...book} />
+                        {bestSelling.map((book, index) => (
+                            <Book key={index} {...book} />
                         ))}
                     </div>
                 </div>

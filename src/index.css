@@ -113,8 +113,8 @@
     }
     .form-input-style > input[type='text'],
     .form-input-style > input[type='password'] {
-        @apply w-full py-1 h-full pl-10 rounded-[3.5px] transition-all;
-        @apply sm:py-2;
+        @apply w-full py-2 h-full pl-10 rounded-[3.5px] transition-all;
+        /* @apply sm:py-2; */
         @apply md:py-3;
     }
 

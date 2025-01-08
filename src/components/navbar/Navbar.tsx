@@ -31,8 +31,6 @@ const Navbar = () => {
     }, []);
     return (
         <>
-            {/* {enableWarning && <FetchWarning disableWarning={disableWarning} />} */}
-            {/* <FloatingWarning /> */}
             <div
                 className={
                     'sidebar transition w-screen h-screen fixed left-0 top-0 z-10 md:hidden ' +
@@ -52,7 +50,7 @@ const Navbar = () => {
                     </div>
 
                     <NavLink
-                        to='/'
+                        to='/bstore'
                         className={({ isActive }) =>
                             isActive
                                 ? 'text-secondary'

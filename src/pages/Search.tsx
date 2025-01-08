@@ -1,117 +1,72 @@
-import React, { useEffect, useState } from 'react';
 import AngleDownIcon from '../components/icons/AngleDownIcon';
-import { BookCoverType } from './Books';
-import Book from '../components/products/Book';
+import BookComponent from '../components/products/Book';
 import categories from '../components/navbar/Categories';
 import LoadIcon from '../components/icons/LoadIcon';
 import SearchIcon from '../components/icons/SearchIcon';
-import serverUrl from '../globals/url';
+import { useStore } from '../store';
+import { BookCoverType } from './Books';
 
 const Search: React.FC = () => {
-    const [searchResult, setSearchResult] = useState<BookCoverType[]>([]);
-    const [openAdvanceSearch, setOpenAdvanceSearch] = useState<boolean>(true);
-    const [enableAdvanceSearch, setEanbleAdvanceSearch] =
-        useState<boolean>(false);
-    const [searching, setSearching] = useState<boolean>(false);
-    // const [simpleSearching, setSimpleSearching] = useState<boolean>(false);
-    const [searched, setSearched] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState<string>('');
+    const books = useStore((store) => store.books);
+    const {
+        open,
+        searching,
+        textInput,
+        toggleOpen,
+        enableAdvanceSearch,
+        category,
+        price,
+        rating,
+        onChange,
+        searchedBooks,
+    } = useStore((store) => store.search);
 
-    const [searchFilters, setSearchFilters] = useState<{
-        category: string;
-        price: number;
-        rating: number | string;
-    }>({ category: 'All', price: 0, rating: 'All' });
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChange('textInput', event.target.value);
 
-    // functions
-
-    const handleEnableAdvanceSearch = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ): void => {
-        const checked = event.target.checked;
-        setEanbleAdvanceSearch(checked);
+        if (!enableAdvanceSearch || !open) {
+            const filtered = books.filter((book) => {
+                const regex = new RegExp(textInput, 'i');
+                return regex.test(book.title);
+            });
+            const mapOut: BookCoverType[] = filtered.map((item, index) => ({
+                _id: String(index),
+                title: item.title,
+                price: item.price,
+                image: item.image,
+            }));
+            onChange('searchedBooks', mapOut.slice(0, 20));
+            return;
+        }
+        // console.log('cannot search yet');
     };
 
-    const handleSearchFilters = (
-        event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-    ): void => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setSearchFilters((prevSearchFilters) => ({
-            ...prevSearchFilters,
-            [name]: value,
+    // useEffect(() => {
+    //     console.log(searchedBooks);
+    // }, [searchedBooks]);
+
+    const handleSearchButton = () => {
+        onChange('searching', true);
+        const searchReggex = new RegExp(textInput, 'i');
+
+        const filtered = books.filter(
+            (item) =>
+                searchReggex.test(item.title) &&
+                item.price >= price &&
+                (rating === 0 ? true : item.rating === rating) &&
+                (category === 'All' ? true : item.category === category)
+        );
+
+        const mapOut = filtered.map((item, index) => ({
+            _id: String(index),
+            title: item.title,
+            price: item.price,
+            image: item.image,
         }));
+        onChange('searchedBooks', mapOut.slice(0, 20));
+
+        onChange('searching', false);
     };
-
-    const search = async (): Promise<void> => {
-        const url = `${serverUrl}/books?title=${inputValue}`;
-
-        const response = await fetch(url);
-        const data: BookCoverType[] = await response.json();
-        setSearchResult(data);
-        setSearched(true);
-        // setSimpleSearching(false);
-    };
-
-    const advanceSearch = async (): Promise<void> => {
-        let allFilters = '';
-        let numericFilters = '&numericFilters=';
-        if (enableAdvanceSearch) {
-            const { category, price, rating } = searchFilters;
-
-            // adding eaching filter
-            if (category && category !== 'All') {
-                allFilters += `&category=${category}`;
-            }
-            if (price && price > 0) {
-                // allFilters += `&price=${price}`;
-                numericFilters += `price>=${price},`;
-            }
-            if (rating && rating !== 'All') {
-                // allFilters += `&rating=${rating}`;
-                numericFilters += `rating=${rating}`;
-            }
-        }
-
-        allFilters += numericFilters;
-        const url = `${serverUrl}/books?title=${inputValue || ''}${allFilters}`;
-
-        // console.log(url);
-        const response = await fetch(url);
-        const data: BookCoverType[] = await response.json();
-        setSearchResult(data);
-        setSearched(true);
-        setSearching(false);
-    };
-
-    const handleInputChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ): void => {
-        const value = event.target.value;
-        setInputValue(value);
-    };
-
-    const handleAdvanceSearch = (): void => {
-        setOpenAdvanceSearch((prevOpenAdvanceSearch) => !prevOpenAdvanceSearch);
-    };
-
-    const handleSearchButton = (): void => {
-        advanceSearch();
-        setSearching(true);
-    };
-
-    // useEffects
-
-    useEffect(() => {
-        if (inputValue && !enableAdvanceSearch) {
-            // setSimpleSearching(true);
-            search();
-        }
-        if (!inputValue && !enableAdvanceSearch) {
-            setSearched(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue]);
 
     return (
         <div>
@@ -121,36 +76,35 @@ const Search: React.FC = () => {
                         <input
                             type='text'
                             placeholder='The black ...'
-                            value={inputValue}
-                            onChange={handleInputChange}
+                            value={textInput}
+                            onChange={handleChange}
                         />
                         <button
                             className='flex items-center gap-1 transition text-gray-500/80 hover:text-gray-600'
-                            onClick={handleAdvanceSearch}
+                            onClick={toggleOpen}
                         >
                             <span>Advance Search</span>
                             <span
                                 className={
-                                    `transition ` +
-                                    (openAdvanceSearch ? '-rotate-180' : '')
+                                    `transition duration-300 ` +
+                                    (open ? '-rotate-180' : '')
                                 }
                             >
                                 <AngleDownIcon width={13} height={13} />
                             </span>
                         </button>
                     </div>
+
                     <div
                         className={
-                            `advance-search flex flex-col items-start gap-7 overflow-hidden transition-all ` +
-                            (openAdvanceSearch
-                                ? 'max-h-screen p-2 mt-9'
-                                : 'max-h-0') +
+                            'flex flex-col items-start gap-5 mt-7 transition-all duration-300 max-h-0 overflow-hidden ' +
+                            (open ? 'max-h-screen p-2 ' : '') +
                             (enableAdvanceSearch
-                                ? ' opacity-100'
-                                : ' opacity-50')
+                                ? 'opacity-100'
+                                : 'opacity-50 pointer-events-none')
                         }
                     >
-                        <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-2 pointer-events-auto'>
                             <label
                                 htmlFor='enable-advance-search'
                                 className={`text-primary`}
@@ -162,7 +116,12 @@ const Search: React.FC = () => {
                                 name='enable-advance-search'
                                 id='enable-advance-search'
                                 checked={enableAdvanceSearch}
-                                onChange={handleEnableAdvanceSearch}
+                                onChange={(event) =>
+                                    onChange(
+                                        'enableAdvanceSearch',
+                                        event.target.checked
+                                    )
+                                }
                                 className={`accent-primary cursor-pointer`}
                             />
                         </div>
@@ -170,8 +129,10 @@ const Search: React.FC = () => {
                             <label htmlFor='category'>Category</label>
                             <select
                                 name='category'
-                                value={searchFilters.category}
-                                onChange={handleSearchFilters}
+                                value={category}
+                                onChange={(event) =>
+                                    onChange('category', event.target.value)
+                                }
                             >
                                 <option value={'All'} id='category'>
                                     All
@@ -192,11 +153,13 @@ const Search: React.FC = () => {
                                     type='range'
                                     min={0.0}
                                     max={100.0}
-                                    value={searchFilters.price}
-                                    onChange={handleSearchFilters}
+                                    value={price}
+                                    onChange={(event) =>
+                                        onChange('price', event.target.value)
+                                    }
                                     className='accent-primary cursor-pointer'
                                 />
-                                <p>{searchFilters.price}.00</p>
+                                <p>{price}.00</p>
                             </div>
                         </div>
                         <div className='flex flex-col gap-3'>
@@ -204,13 +167,20 @@ const Search: React.FC = () => {
                             <select
                                 name='rating'
                                 id='rating'
-                                value={searchFilters.rating}
-                                onChange={handleSearchFilters}
+                                value={rating}
+                                onChange={(event) =>
+                                    onChange(
+                                        'rating',
+                                        Number(event.target.value)
+                                    )
+                                }
                             >
-                                {['All', 1.0, 2.0, 3.0, 4.0, 5.0].map(
+                                {[0.0, 1.0, 2.0, 3.0, 4.0, 5.0].map(
                                     (ratingValue, index) => (
                                         <option key={index} value={ratingValue}>
-                                            {ratingValue}
+                                            {ratingValue === 0
+                                                ? 'All'
+                                                : ratingValue}
                                         </option>
                                     )
                                 )}
@@ -236,20 +206,20 @@ const Search: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                {searched && (
+                {!searching && (
                     <div className='search-contents mt-7'>
                         <div className='result bg-primary text-secondary px-2 py-1 rounded-sm'>
                             <h2>
                                 Result:{' '}
                                 <span className='font-semibold text-base'>
-                                    {searchResult.length}
+                                    {searchedBooks.length}
                                 </span>
                             </h2>
                         </div>
                         <div className='mt-5 flex gap-3 flex-wrap justify-center'>
-                            {searchResult.length >= 1 ? (
-                                searchResult.map((book) => (
-                                    <Book key={book._id} {...book} />
+                            {searchedBooks.length >= 1 ? (
+                                searchedBooks.map((book, index) => (
+                                    <BookComponent key={index} {...book} />
                                 ))
                             ) : (
                                 <div>
