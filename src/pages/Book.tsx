@@ -30,15 +30,14 @@ const Book: React.FC = () => {
     let { bookID } = useParams();
     if (bookID) {
         bookID = formatString(bookID, 'revert');
-        console.log(bookID);
     }
 
     const book = books.find((book) => book.title === bookID);
-    console.log(book);
 
     const similarBooks: BookCoverType[] = books
         .filter((book) => book.category === book.category)
         .map((book) => ({
+            id: book.id,
             title: book.title,
             price: book.price,
             image: book.image,
@@ -133,9 +132,9 @@ const Book: React.FC = () => {
                                     <button
                                         className='bg-main text-secondary px-2 py-1.5 rounded-md transition hover:bg-opacity-80 flex gap-2 justify-center items-center'
                                         onClick={() =>
-                                            book?._id &&
+                                            book?.id &&
                                             addToCart(
-                                                book?._id,
+                                                book?.id,
                                                 1,
                                                 book.image,
                                                 book.price
@@ -164,7 +163,7 @@ const Book: React.FC = () => {
                     </div>
                     <div className='mt-3 grid grid-flow-col gap-3 overflow-x-scroll scrollbar-thin scrollbar-track-secondary scrollbar-thumb-primary p-2'>
                         {similarBooks?.map((book) => (
-                            <Book2 key={book._id} {...book} />
+                            <Book2 key={book.id} {...book} />
                         ))}
                     </div>
                 </div>

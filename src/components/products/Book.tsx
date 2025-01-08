@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { BookCoverType } from '../../pages/Books';
 import { addToCart } from '../methods/methods';
 import { formatString } from '../functions/functions';
-const Book: React.FC<BookCoverType> = ({ _id, title, price, image }) => {
+const Book: React.FC<BookCoverType> = ({ id, title, price, image }) => {
     const stringId = formatString(title);
     return (
         <div className='w-[175px] h-[300px] sm:w-[215px] bg-[#edebf0] rounded-md flex flex-col gap-1 justify-center items-center hover:scale-105 transition-transform duration-200 cursor-pointer'>
@@ -19,7 +19,7 @@ const Book: React.FC<BookCoverType> = ({ _id, title, price, image }) => {
             </Link>
             <button
                 className='btn-hover w-[107px] h-[31px] bg-main text-secondary rounded-[5px] text-sm'
-                onClick={() => addToCart(_id, 1, image, price)}
+                onClick={() => addToCart(id, 1, image, price)}
             >
                 Add to Cart
             </button>

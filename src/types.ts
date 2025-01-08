@@ -1,6 +1,8 @@
 import { BookCoverType } from './pages/Books';
 
 export interface Book {
+    id: string;
+    sn: number;
     title: string;
     price: number;
     category: string;

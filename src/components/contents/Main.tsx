@@ -15,8 +15,8 @@ const Main: React.FC = () => {
                         <h3>Latest Books</h3>
                     </div>
                     <div className='books mt-3 flex flex-wrap justify-center gap-3'>
-                        {latestBooks.map((book, index) => (
-                            <Book key={index} {...book} />
+                        {latestBooks.map((book) => (
+                            <Book key={book.id} {...book} />
                         ))}
                     </div>
                 </div>
@@ -25,8 +25,8 @@ const Main: React.FC = () => {
                         <h3>Best Selling</h3>
                     </div>
                     <div className='books mt-3 flex flex-wrap justify-center gap-3'>
-                        {bestSelling.map((book, index) => (
-                            <Book key={index} {...book} />
+                        {bestSelling.map((book) => (
+                            <Book key={book.id} {...book} />
                         ))}
                     </div>
                 </div>

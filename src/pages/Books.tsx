@@ -3,7 +3,7 @@ import Book from '../components/products/Book';
 import { useStore } from '../store';
 
 export interface BookCoverType {
-    _id: string;
+    id: string;
     title: string;
     price: number;
     image: string;
@@ -52,8 +52,8 @@ const Books = () => {
                     </button>
                 </div>
                 <div className='books mt-10 flex flex-wrap justify-center gap-3'>
-                    {books.map((book, index) => (
-                        <Book key={index} {...book} />
+                    {books.map((book) => (
+                        <Book key={book.id} {...book} />
                     ))}
                 </div>
             </div>

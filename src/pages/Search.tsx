@@ -29,8 +29,8 @@ const Search: React.FC = () => {
                 const regex = new RegExp(textInput, 'i');
                 return regex.test(book.title);
             });
-            const mapOut: BookCoverType[] = filtered.map((item, index) => ({
-                _id: String(index),
+            const mapOut: BookCoverType[] = filtered.map((item) => ({
+                id: item.id,
                 title: item.title,
                 price: item.price,
                 image: item.image,
@@ -57,8 +57,8 @@ const Search: React.FC = () => {
                 (category === 'All' ? true : item.category === category)
         );
 
-        const mapOut = filtered.map((item, index) => ({
-            _id: String(index),
+        const mapOut = filtered.map((item) => ({
+            id: item.id,
             title: item.title,
             price: item.price,
             image: item.image,
