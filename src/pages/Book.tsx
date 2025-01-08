@@ -1,75 +1,59 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import StarIcon from '../components/icons/StarIcon';
 import CartIcon2 from '../components/icons/CartIcon2';
 import { BookCoverType } from './Books';
 import Book2 from '../components/products/Book';
 import { addToCart } from '../components/methods/methods';
-import url from '../globals/url';
+import { formatString } from '../components/functions/functions';
+import { useStore } from '../store';
 
-interface BookType {
-    _id: string;
-    title: string;
-    price: number;
-    category: string;
-    rating: number;
-    image: string;
-    description: string;
-    upc: string;
-    product_type: string;
-    price_excl_tax: number;
-    price_incl_tax: number;
-    tax: number;
-    availability: number;
-    reviews: number;
-    currency: string;
-}
+// interface BookType {
+//     _id: string;
+//     title: string;
+//     price: number;
+//     category: string;
+//     rating: number;
+//     image: string;
+//     description: string;
+//     upc: string;
+//     product_type: string;
+//     price_excl_tax: number;
+//     price_incl_tax: number;
+//     tax: number;
+//     availability: number;
+//     reviews: number;
+//     currency: string;
+// }
 
 const Book: React.FC = () => {
-    const { bookID } = useParams();
-    const [book, setBook] = useState<BookType | null>(null);
-    const [rating, setRating] = useState<number | null>(null);
+    const books = useStore((store) => store.books);
+    let { bookID } = useParams();
+    if (bookID) {
+        bookID = formatString(bookID, 'revert');
+        console.log(bookID);
+    }
 
-    const [similarBooks, setSimilarBooks] = useState<BookCoverType[] | null>(
-        null
-    );
+    const book = books.find((book) => book.title === bookID);
+    console.log(book);
 
-    const fetchSimilarBooks = async (category?: string): Promise<void> => {
-        const response = await fetch(
-            `${url}/v1/books?category=${
-                book?.category || category
-            }&fields=title,price,image`
-        );
-        const data: BookCoverType[] = await response.json();
-        setSimilarBooks(data);
-    };
-
-    const fetchBook = async (): Promise<void> => {
-        const response = await fetch(`${url}/v1/books/${bookID}`);
-        const data: BookType = await response.json();
-        setBook(data);
-    };
-    useEffect(() => {
-        fetchBook();
-        const html = document.getElementsByTagName('html')[0];
-        html.scrollTop = 0;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bookID]);
-    useEffect(() => {
-        setRating(book?.rating || null);
-        fetchSimilarBooks();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [book]);
+    const similarBooks: BookCoverType[] = books
+        .filter((book) => book.category === book.category)
+        .map((book) => ({
+            title: book.title,
+            price: book.price,
+            image: book.image,
+        }))
+        .slice(0, 20);
 
     const formateRating = () => {
-        if (!rating) {
+        if (!book?.rating) {
             return;
         }
 
         const allRating = [];
 
-        const rated = rating;
-        const unrated = 5 - rating;
+        const rated = book?.rating;
+        const unrated = 5 - book?.rating;
 
         for (let i = 0; i < rated; i++) {
             const markedRating = {
@@ -87,9 +71,14 @@ const Book: React.FC = () => {
         return allRating;
     };
 
+    const html = document.getElementsByTagName('html')[0];
+    html.scrollTop = 0;
+
     // styles
     const bookLinksStyle = 'book-links transition hover:text-gray-500';
     const separator = <span>/</span>;
+
+    // return <div>hello</div>;
     return (
         <div className='book'>
             <div className='container text-sm text-primary md:w-[700px] lg:w-[1000px]'>
