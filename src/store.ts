@@ -106,7 +106,7 @@ export const useStore = create<Store>()(
                     }));
                 });
             },
-            cartAlert: true,
+            cartAlert: false,
             addingBook: null,
         },
     }))
