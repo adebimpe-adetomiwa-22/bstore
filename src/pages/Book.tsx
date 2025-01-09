@@ -2,12 +2,12 @@ import { Link, useParams } from 'react-router-dom';
 import StarIcon from '../components/icons/StarIcon';
 import CartIcon2 from '../components/icons/CartIcon2';
 import { BookCoverType } from './Books';
-import Book2 from '../components/products/Book';
-import { addToCart } from '../components/methods/methods';
 import { formatString } from '../components/functions/functions';
 import { useStore } from '../store';
+import Book2 from '../components/products/Book';
 
 const Book: React.FC = () => {
+    const addToCart = useStore((store) => store.cart.addToCart);
     const books = useStore((store) => store.books);
     let { bookID } = useParams();
     if (bookID) {
@@ -115,7 +115,7 @@ const Book: React.FC = () => {
                                         onClick={() =>
                                             book?.id &&
                                             addToCart(
-                                                book?.id,
+                                                book.id,
                                                 1,
                                                 book.image,
                                                 book.price

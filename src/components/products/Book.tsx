@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import { BookCoverType } from '../../pages/Books';
-import { addToCart } from '../methods/methods';
+// import { addToCart } from '../methods/methods';
 import { formatString } from '../functions/functions';
 import PlusIcon from '../icons/PlusIcon';
+import { useStore } from '../../store';
 const Book: React.FC<BookCoverType> = ({ id, title, price, image }) => {
+    const addToCart = useStore((store) => store.cart.addToCart);
+
     const stringId = formatString(title);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        console.log('button clicked');
         addToCart(id, 1, image, price);
     };
     return (

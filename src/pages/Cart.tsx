@@ -8,7 +8,7 @@ const Cart = () => {
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
     const fetchBooks = (): void => {
-        const booksString: string | null = localStorage.getItem('books');
+        const booksString: string | null = localStorage.getItem('cart');
         let books: CartBookType[];
         if (booksString) {
             books = JSON.parse(booksString);
@@ -19,7 +19,7 @@ const Cart = () => {
     };
     const updateBooks = (): void => {
         if (books) {
-            localStorage.setItem('books', JSON.stringify(books));
+            localStorage.setItem('cart', JSON.stringify(books));
         }
     };
 
@@ -112,7 +112,7 @@ const Cart = () => {
                                 : '')
                         }
                     >
-                        {totalPrice}
+                        $ {totalPrice}
                     </h1>
                 </div>
                 <div className='items mt-7 flex flex-wrap gap-6 lg:justify-center md:gap-12 p-2 w-full'>

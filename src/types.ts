@@ -25,6 +25,13 @@ export interface Cover {
     image: string;
 }
 
+export interface Cart {
+    bookAmount: number;
+    bookID: string;
+    bookImage: string;
+    bookPrice: number;
+}
+
 export interface Store {
     books: Book[];
     cover: BookCoverType[];
@@ -43,5 +50,19 @@ export interface Store {
             value: number | string | boolean | BookCoverType[]
         ) => void;
         searchedBooks: BookCoverType[];
+    };
+    cart: {
+        items: Cart[];
+        count: number;
+        updateCart: (cart: Cart[]) => void;
+
+        addToCart: (
+            bookID: string,
+            bookAmount: number,
+            bookImage: string,
+            bookPrice: number
+        ) => void;
+        cartAlert: boolean;
+        addingBook: string | null;
     };
 }

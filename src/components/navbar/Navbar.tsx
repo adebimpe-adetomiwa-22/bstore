@@ -3,15 +3,19 @@ import HamburgerIcon from '../icons/HamburgerIcon';
 import LogoIcon from '../icons/LogoIcon';
 import UserIcon from '../icons/UserIcon';
 import Sidebar from './Sidebar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import NavContents from './NavContents';
 import Footer from '../footer/Footer';
 import SearchIcon from '../icons/SearchIcon';
 import CartIcon2 from '../icons/CartIcon2';
+import { useStore } from '../../store';
+import CartAlert from '../cart/CartAlert';
 
 const Navbar = () => {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
-    const [cartCount, setCartCount] = useState<number>(0);
+    const cartCount = useStore((store) => store.cart.count);
+    const cartAlert = useStore((store) => store.cart.cartAlert);
+    console.log(cartAlert);
 
     const toggleSidebar = (): void => {
         setOpenSidebar((prevOpenSidebar) => !prevOpenSidebar);
@@ -23,14 +27,9 @@ const Navbar = () => {
     //     }
     // };
 
-    useEffect(() => {
-        const count = localStorage.getItem('books');
-        if (!count) return;
-        const jsonCount = JSON.parse(count).length;
-        setCartCount(jsonCount);
-    }, []);
     return (
         <>
+            {cartAlert && <CartAlert />}
             <div
                 className={
                     'sidebar transition w-screen h-screen fixed left-0 top-0 z-10 md:hidden ' +

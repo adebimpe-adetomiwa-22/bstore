@@ -40,6 +40,8 @@ export const addToCart = (
         books.push(book);
     }
 
+    // update cart
+
     // turn books json to string
     const addBook: string = JSON.stringify(books);
 
