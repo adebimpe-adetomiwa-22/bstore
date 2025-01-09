@@ -7,24 +7,6 @@ import { addToCart } from '../components/methods/methods';
 import { formatString } from '../components/functions/functions';
 import { useStore } from '../store';
 
-// interface BookType {
-//     _id: string;
-//     title: string;
-//     price: number;
-//     category: string;
-//     rating: number;
-//     image: string;
-//     description: string;
-//     upc: string;
-//     product_type: string;
-//     price_excl_tax: number;
-//     price_incl_tax: number;
-//     tax: number;
-//     availability: number;
-//     reviews: number;
-//     currency: string;
-// }
-
 const Book: React.FC = () => {
     const books = useStore((store) => store.books);
     let { bookID } = useParams();
@@ -84,11 +66,11 @@ const Book: React.FC = () => {
                 <div className='mt-7 mb-5 sm:mb-7 md:mb-9 lg:mb-11'>
                     <ul className='flex gap-2 text-gray-400'>
                         <li className={bookLinksStyle}>
-                            <Link to={'/books'}>Books</Link>
+                            <Link to={'/bstore/books'}>Books</Link>
                         </li>
                         {separator}
                         <li className={bookLinksStyle}>
-                            <Link to={`/category/${book?.category}`}>
+                            <Link to={`/bstore/category/${book?.category}`}>
                                 {book?.category}
                             </Link>
                         </li>
@@ -100,7 +82,6 @@ const Book: React.FC = () => {
                     <div className='flex flex-col items-center sm:flex-row sm:h-80 sm:gap-3 lg:w-full'>
                         <div className='book-image sm:w-full sm:h-full'>
                             <img
-                                // src={navigator.onLine ? book?.image : BookCover}
                                 src={book?.image}
                                 alt='book image'
                                 title='book image'
