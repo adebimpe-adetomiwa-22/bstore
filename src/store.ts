@@ -104,7 +104,7 @@ export const useStore = create<Store>()(
                     set((state) => ({
                         cart: { ...state.cart, addingBook: null },
                     }));
-                }, 3000);
+                }, 1500);
             },
             cartAlert: false,
             addingBook: null,
