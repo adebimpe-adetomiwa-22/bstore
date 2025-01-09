@@ -15,7 +15,6 @@ const Navbar = () => {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
     const cartCount = useStore((store) => store.cart.count);
     const cartAlert = useStore((store) => store.cart.cartAlert);
-    console.log(cartAlert);
 
     const toggleSidebar = (): void => {
         setOpenSidebar((prevOpenSidebar) => !prevOpenSidebar);

@@ -1,11 +1,12 @@
-// import { useEffect } from 'react';
 import { useEffect, useState } from 'react';
 import CartItem from '../components/contents/CartItem';
 import { CartBookType } from '../components/methods/methods';
+import { useStore } from '../store';
 const Cart = () => {
     const [books, setBooks] = useState<CartBookType[] | null>(null);
     const [fixedPage, setFixedPage] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const updateCart = useStore((store) => store.cart.updateCart);
 
     const fetchBooks = (): void => {
         const booksString: string | null = localStorage.getItem('cart');
@@ -17,11 +18,11 @@ const Cart = () => {
         }
         setBooks(books);
     };
-    const updateBooks = (): void => {
-        if (books) {
-            localStorage.setItem('cart', JSON.stringify(books));
-        }
-    };
+    // const updateBooks = (): void => {
+    //     if (books) {
+    //         localStorage.setItem('cart', JSON.stringify(books));
+    //     }
+    // };
 
     useEffect(() => {
         window.addEventListener('scroll', () =>
@@ -45,7 +46,8 @@ const Cart = () => {
         }
 
         // update books
-        updateBooks();
+        // updateBooks();
+        updateCart(books);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [books]);
@@ -98,6 +100,10 @@ const Cart = () => {
                 prevBooks.filter((prevBook) => prevBook.bookID !== bookID)
         );
     };
+
+    // useEffect(() => {
+    //     console.log(books);
+    // }, []);
 
     return (
         <div>
