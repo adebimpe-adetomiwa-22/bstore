@@ -1,5 +1,3 @@
-import { BookCoverType } from './pages/Books';
-
 export interface Book {
     id: string;
     sn: number;
@@ -20,6 +18,7 @@ export interface Book {
 }
 
 export interface Cover {
+    id: string;
     title: string;
     price: number;
     image: string;
@@ -34,8 +33,8 @@ export interface Cart {
 
 export interface Store {
     books: Book[];
-    cover: BookCoverType[];
-    category: (categoryName: string) => BookCoverType[];
+    cover: Cover[];
+    category: (categoryName: string) => Cover[];
     search: {
         open: boolean;
         searching: boolean;
@@ -47,9 +46,9 @@ export interface Store {
         rating: number;
         onChange: (
             name: string,
-            value: number | string | boolean | BookCoverType[]
+            value: number | string | boolean | Cover[]
         ) => void;
-        searchedBooks: BookCoverType[];
+        searchedBooks: Cover[];
     };
     cart: {
         items: Cart[];

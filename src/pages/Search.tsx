@@ -4,7 +4,7 @@ import categories from '../components/navbar/Categories';
 import LoadIcon from '../components/icons/LoadIcon';
 import SearchIcon from '../components/icons/SearchIcon';
 import { useStore } from '../store';
-import { BookCoverType } from './Books';
+import { Cover } from '../types';
 
 const Search: React.FC = () => {
     const books = useStore((store) => store.books);
@@ -29,7 +29,7 @@ const Search: React.FC = () => {
                 const regex = new RegExp(textInput, 'i');
                 return regex.test(book.title);
             });
-            const mapOut: BookCoverType[] = filtered.map((item) => ({
+            const mapOut: Cover[] = filtered.map((item) => ({
                 id: item.id,
                 title: item.title,
                 price: item.price,
@@ -57,7 +57,7 @@ const Search: React.FC = () => {
                 (category === 'All' ? true : item.category === category)
         );
 
-        const mapOut = filtered.map((item) => ({
+        const mapOut: Cover[] = filtered.map((item) => ({
             id: item.id,
             title: item.title,
             price: item.price,
