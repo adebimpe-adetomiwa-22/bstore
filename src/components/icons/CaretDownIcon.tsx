@@ -3,8 +3,8 @@ const CaretDownIcon: React.FC<Svg> = ({ width, height }) => {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
-            width={width || '76.918'}
-            height={height || '46.151'}
+            width={width || '1em'}
+            height={height || '1em'}
             viewBox='0 0 76.918 46.151'
         >
             <path

@@ -20,7 +20,7 @@ const CartItem: React.FC<
     deleteBook,
 }) => {
     return (
-        <div className='flex flex-col w-40 md:w-52 rounded-sm overflow-hidden'>
+        <div className='flex flex-col w-32 sm:w-40 md:w-52 rounded-sm overflow-hidden h-32 sm:h-auto'>
             <div className='flex gap-5 w-full h-full justify-between'>
                 <div className='item-image'>
                     <img
@@ -31,32 +31,33 @@ const CartItem: React.FC<
                     />
                 </div>
                 <div className='info flex flex-col justify-between text-[12px] md:text-[14px]'>
-                    <div className='flex flex-col items-center gap-3 border border-gray-300/80 rounded-sm p-2'>
+                    <div className='flex flex-col items-center gap-1 sm:gap-3 border border-gray-300/80 rounded-sm p-2 h-[80%] sm:h-auto'>
                         <button
+                            id='increase'
                             className='caret-button up'
                             onClick={() => increase(bookID, bookAmount)}
                         >
-                            <CaretUpIcon width={11} height={11} />
+                            <CaretUpIcon />
                         </button>
                         <p className='text-center'>{bookAmount}</p>
-                        <div className='flex flex-col gap-5 items-center'>
+                        <div className='flex flex-col gap-1.5 sm:gap-5 items-center'>
                             <button
                                 className='caret-button down'
                                 onClick={() => decrease(bookID, bookAmount)}
                             >
-                                <CaretDownIcon width={11} height={11} />
+                                <CaretDownIcon />
                             </button>
                             <button
-                                className='caret-button down opacity-65'
+                                className='caret-button down opacity-65 text-[10px] sm:text-[15px]'
                                 onClick={() => deleteBook(bookID, bookAmount)}
                             >
-                                <TrashIcon width={15} height={15} />
+                                <TrashIcon />
                             </button>
                         </div>
                     </div>
                     {/* <div className='price flex justify-center border border-gray-300/80 p-1'> */}
                     <div className='price flex justify-center'>
-                        <h5 className='font-semibold text-primary'>
+                        <h5 className='font-semibold text-primary sm:text-base'>
                             {(bookPrice * bookAmount).toFixed(2)}
                         </h5>
                     </div>

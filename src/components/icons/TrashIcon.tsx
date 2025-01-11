@@ -4,8 +4,8 @@ const TrashIcon: React.FC<Svg> = ({ width, height }) => {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
-            width={width || '45.397'}
-            height={height || '51.882'}
+            width={width || '1em'}
+            height={height || '1em'}
             viewBox='0 0 45.397 51.882'
         >
             <path

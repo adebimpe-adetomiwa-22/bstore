@@ -14,6 +14,9 @@ export default {
                 tertiary: '#BCADAD',
                 rblue: 'rgba(50, 29, 82, 0.9)',
             },
+            screen: {
+                xs: '320px',
+            },
         },
     },
     plugins: [tailwindScrollbar],

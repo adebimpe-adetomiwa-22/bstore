@@ -4,8 +4,8 @@ const CaretUpIcon: React.FC<Svg> = ({ width, height }) => {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
-            width={width || '76.919'}
-            height={height || '46.151'}
+            width={width || '1em'} // | '76.919'
+            height={height || '1em'} // | '46.151'
             viewBox='0 0 76.919 46.151'
         >
             <path
