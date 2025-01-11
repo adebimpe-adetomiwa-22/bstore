@@ -20,17 +20,17 @@ const CartItem: React.FC<
     deleteBook,
 }) => {
     return (
-        <div className='flex flex-col w-56 rounded-sm overflow-hidden'>
+        <div className='flex flex-col w-40 md:w-52 rounded-sm overflow-hidden'>
             <div className='flex gap-5 w-full h-full justify-between'>
                 <div className='item-image'>
                     <img
                         src={bookImage || BookCover}
-                        className='h-full'
+                        className='h-full object-cover object-center'
                         alt='book image'
                         title='book image'
                     />
                 </div>
-                <div className='info flex flex-col justify-between'>
+                <div className='info flex flex-col justify-between text-[12px] md:text-[14px]'>
                     <div className='flex flex-col items-center gap-3 border border-gray-300/80 rounded-sm p-2'>
                         <button
                             className='caret-button up'

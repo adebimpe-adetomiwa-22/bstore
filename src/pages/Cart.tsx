@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CartItem from '../components/contents/CartItem';
 import { CartBookType } from '../components/methods/methods';
 import { useStore } from '../store';
+import { Link } from 'react-router-dom';
 const Cart = () => {
     const [books, setBooks] = useState<CartBookType[] | null>(null);
     const [fixedPage, setFixedPage] = useState<boolean>(false);
@@ -45,7 +46,7 @@ const Cart = () => {
             setTotalPrice((0 * 100) / 100);
         }
 
-        // update books
+        // update booksb
         // updateBooks();
         updateCart(books);
 
@@ -121,22 +122,38 @@ const Cart = () => {
                         $ {totalPrice}
                     </h1>
                 </div>
-                <div className='items mt-7 flex flex-wrap gap-6 lg:justify-center md:gap-12 p-2 w-full'>
-                    {books?.map((book) => (
-                        // <CartItem  />
-                        <CartItem
-                            key={book.bookID}
-                            {...book}
-                            increase={increase}
-                            decrease={decrease}
-                            deleteBook={deleteBook}
-                        />
-                    ))}
+                <div className='items mt-7 flex flex-wrap gap-6 justify-center lg:justify-center md:gap-12 p-2 w-full'>
+                    {books && books.length <= 0 ? (
+                        <div>
+                            <p className='text-sm'>You have no books to read</p>
+                        </div>
+                    ) : (
+                        books?.map((book) => (
+                            // <CartItem  />
+                            <CartItem
+                                key={book.bookID}
+                                {...book}
+                                increase={increase}
+                                decrease={decrease}
+                                deleteBook={deleteBook}
+                            />
+                        ))
+                    )}
                 </div>
 
-                <div className='checkout text-sm'>
-                    <h5>Checkout</h5>
-                </div>
+                {books && books.length <= 0 ? (
+                    <div className='text-sm flex justify-center items-center mt-7'>
+                        <Link to={'/bstore/books'}>
+                            <button className='bg-main text-secondary py-1 px-2 rounded-md transition-all animate-bounce hover:opacity-85 hover:animate-none'>
+                                Add books
+                            </button>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className='checkout text-sm'>
+                        <h5>Checkout</h5>
+                    </div>
+                )}
             </div>
         </div>
     );
