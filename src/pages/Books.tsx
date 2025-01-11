@@ -31,7 +31,7 @@ const Books = () => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const value = Number(event.target.value);
-        if (value <= 0) {
+        if (value <= 0 || value > storeBooks.length / booksPerPage) {
             return;
         }
         setPage(value);
@@ -58,7 +58,7 @@ const Books = () => {
                     <input
                         minLength={1}
                         value={page}
-                        className='w-5 text-center border-none outline-none'
+                        className='w-5 text-center border-none outline-none min-w-9 rounded-md'
                         onChange={handleChange}
                     />
                     {!(page >= storeBooks.length / booksPerPage) && (
