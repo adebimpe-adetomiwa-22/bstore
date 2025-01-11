@@ -108,6 +108,19 @@ export const useStore = create<Store>()(
             },
             cartAlert: false,
             addingBook: null,
+            loadCartItems: () => {
+                const cartString = localStorage.getItem('cart');
+                if (!cartString) {
+                    set((state) => ({ cart: { ...state.cart, items: [] } }));
+                    set((state) => ({ cart: { ...state.cart, count: 0 } }));
+                    return;
+                }
+                const cartJson: Cart[] = JSON.parse(cartString);
+                set((state) => ({ cart: { ...state.cart, items: cartJson } }));
+                set((state) => ({
+                    cart: { ...state.cart, count: cartJson.length },
+                }));
+            },
         },
     }))
 );

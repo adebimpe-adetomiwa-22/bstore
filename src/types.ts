@@ -63,5 +63,6 @@ export interface Store {
         ) => void;
         cartAlert: boolean;
         addingBook: string | null;
+        loadCartItems: () => void;
     };
 }

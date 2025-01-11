@@ -3,7 +3,7 @@ import HamburgerIcon from '../icons/HamburgerIcon';
 import LogoIcon from '../icons/LogoIcon';
 import UserIcon from '../icons/UserIcon';
 import Sidebar from './Sidebar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavContents from './NavContents';
 import Footer from '../footer/Footer';
 import SearchIcon from '../icons/SearchIcon';
@@ -15,6 +15,11 @@ const Navbar = () => {
     const [openSidebar, setOpenSidebar] = useState<boolean>(false);
     const cartCount = useStore((store) => store.cart.count);
     const cartAlert = useStore((store) => store.cart.cartAlert);
+    const loadCartItems = useStore((store) => store.cart.loadCartItems);
+
+    useEffect(() => {
+        loadCartItems();
+    }, [loadCartItems]);
 
     const toggleSidebar = (): void => {
         setOpenSidebar((prevOpenSidebar) => !prevOpenSidebar);
