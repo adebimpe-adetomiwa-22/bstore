@@ -33,6 +33,10 @@
         @apply p-3;
     }
 
+    .container2 {
+        @apply p-3;
+    }
+
     .hero {
         @apply bg-[url('./assets/images/jessica-ruscello-OQSCtabGkSY-unsplash@2x.png')] bg-cover bg-center bg-no-repeat bg-rblue bg-blend-multiply;
         @apply md:bg-none md:bg-primary;

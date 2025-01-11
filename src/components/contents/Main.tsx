@@ -8,7 +8,7 @@ const Main: React.FC = () => {
     const bestSelling = cover.slice(13, 30);
     return (
         <main className='main' id='main'>
-            <div className='container'>
+            <div className='container2 bg-red-500'>
                 {/* <Search /> */}
                 <div>
                     <div className='book-subtitle'>

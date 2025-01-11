@@ -44,7 +44,7 @@ const Navbar = () => {
             </div>
 
             <nav className='nav bg-primary' id='nav'>
-                <div className='container flex justify-between items-center'>
+                <div className='container2 flex justify-between items-center'>
                     <div
                         className='hamburger icon-hover cursor-pointer md:hidden'
                         onClick={toggleSidebar}
