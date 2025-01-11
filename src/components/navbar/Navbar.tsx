@@ -97,7 +97,14 @@ const Navbar = () => {
                             <div className='cart icon-hover cursor-pointer'>
                                 <div className='relative'>
                                     <CartIcon2 width={21} />
-                                    <div className='w-5 h-5 rounded-full bg-main absolute flex justify-center items-center top-1 -right-2'>
+                                    <div
+                                        className={
+                                            'w-5 h-5 rounded-full bg-main absolute flex justify-center items-center top-1 -right-2 ' +
+                                            (cartCount === 0
+                                                ? 'animate-pulse'
+                                                : '')
+                                        }
+                                    >
                                         <p className='text-[0.7rem] text-secondary'>
                                             {cartCount}
                                         </p>
