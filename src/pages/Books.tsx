@@ -15,7 +15,7 @@ const Books = () => {
     const storeBooks = useStore((store) => store.cover);
     // const books = storeBooks.slice(0, 20);
     const [books, setBooks] = useState<Cover[]>(storeBooks.slice(0, 20));
-    const [booksPerPage, setBooksPerPage] = useState<number>(
+    const [booksPerPage] = useState<number>(
         storeBooks.length > 20 ? 20 : storeBooks.length
     );
 
@@ -43,7 +43,7 @@ const Books = () => {
         // const nextBooks = storeBooks.slice(0, 20);
         const nextBooks = storeBooks.slice(start, end);
         setBooks(nextBooks);
-    }, [page]);
+    }, [booksPerPage, page, storeBooks]);
 
     return (
         <section className='all-books' id='all-books'>
