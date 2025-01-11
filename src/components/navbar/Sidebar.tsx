@@ -13,7 +13,7 @@ const Sidebar: React.FC<SidebarType> = ({ close }) => {
     return (
         // <section className='w-full h-full md:hidden' id='sidebar'>
         <section className='w-full h-full' id='sidebar'>
-            <div className='w-[200px] h-full bg-white'>
+            <div className='w-[200px] h-full bg-white overflow-y-scroll scrollbar-thumb-primary scrollbar-thin'>
                 <div className='container'>
                     <div className='top-bar flex justify-between items-center'>
                         <Link to='/bstore'>
