@@ -14,7 +14,7 @@ export default {
                 tertiary: '#BCADAD',
                 rblue: 'rgba(50, 29, 82, 0.9)',
             },
-            screen: {
+            screens: {
                 xs: '320px',
             },
         },

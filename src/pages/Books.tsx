@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Book from '../components/products/Book';
 import { useStore } from '../store';
+import { Cover } from '../types';
 
 export interface BookCoverType {
     id: string;
@@ -11,7 +12,12 @@ export interface BookCoverType {
 
 const Books = () => {
     const [page, setPage] = useState<number>(1);
-    const books = useStore((store) => store.cover).slice(0, 20);
+    const storeBooks = useStore((store) => store.cover);
+    // const books = storeBooks.slice(0, 20);
+    const [books, setBooks] = useState<Cover[]>(storeBooks.slice(0, 20));
+    const [booksPerPage, setBooksPerPage] = useState<number>(
+        storeBooks.length > 20 ? 20 : storeBooks.length
+    );
 
     const nextPage = (): void => {
         // if (page)
@@ -31,6 +37,14 @@ const Books = () => {
         setPage(value);
     };
 
+    useEffect(() => {
+        const start = booksPerPage * page - booksPerPage;
+        const end = start + 20;
+        // const nextBooks = storeBooks.slice(0, 20);
+        const nextBooks = storeBooks.slice(start, end);
+        setBooks(nextBooks);
+    }, [page]);
+
     return (
         <section className='all-books' id='all-books'>
             <div className='container'>
@@ -47,9 +61,11 @@ const Books = () => {
                         className='w-5 text-center border-none outline-none'
                         onChange={handleChange}
                     />
-                    <button className='page-button' onClick={nextPage}>
-                        Next
-                    </button>
+                    {!(page >= storeBooks.length / booksPerPage) && (
+                        <button className='page-button' onClick={nextPage}>
+                            Next
+                        </button>
+                    )}
                 </div>
                 <div className='books mt-10 flex flex-wrap justify-center gap-3'>
                     {books.map((book) => (
